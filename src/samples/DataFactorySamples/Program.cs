@@ -68,6 +68,12 @@ namespace DataFactorySamples
             Console.WriteLine(JsonConvert.SerializeObject(triggerResource, Formatting.Indented));
 
             var stopResponse = await client.Triggers.BeginStopWithHttpMessagesAsync(settings.ResourceGroupName, settings.FactoryName, settings.TriggerName);
+
+            var stoppedTriggerResponse = await client.Triggers.GetWithHttpMessagesAsync(settings.ResourceGroupName, settings.FactoryName, settings.TriggerName);
+
+            Console.WriteLine("----- STOPPED Trigger Resource:");
+            Console.WriteLine(JsonConvert.SerializeObject(stoppedTriggerResponse.Body, Formatting.Indented));
+
             var updateResponse = await client.Triggers.CreateOrUpdateWithHttpMessagesAsync(settings.ResourceGroupName, settings.FactoryName, settings.TriggerName, triggerResource, "*");
             var startResponse = await client.Triggers.BeginStartWithHttpMessagesAsync(settings.ResourceGroupName, settings.FactoryName, settings.TriggerName);
 
